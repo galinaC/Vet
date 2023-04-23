@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width"/>
+    <title>Ветеринарни услуги</title>
+
+        <link href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="/css/main.css" rel="stylesheet"/>
+        <link href="/css/index.css" rel="stylesheet"/>
+
+        <link href="https://cdn.datatables.net/v/dt/dt-1.13.4/datatables.min.css" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    </head>
+    <body>
+    <div class="logo"><a href="#"><img src="~ /css/image/four_paws_veterinary_clinic.png" width="60" height="50"></a></div>
+    <nav>
+        <ul>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Начало</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AboutUs">За нас</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Services">Услуги</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Свържете се с нас</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Question">Често задавани въпроси</a>
+            </li>
+        </ul>
+    </nav>
+        <div class="container">
+                <header>
+                </a>
+                    @if (!User.Identity!.IsAuthenticated) {
+                        <li class="nav-item"><a asp-controller="Account" asp-action="Login" class="nav-link">Вход</a></li>
+                        <li class="nav-item"><a asp-controller="Account" asp-action="Register" class="nav-link">Регистрация</a></li>
+                    }
+                    else if (User.IsInRole("User"))
+                    {
+                    <li class="nav-item"><a asp-controller="VetPassport" asp-action="GetVetPassports" class="nav-link">Моите домашни любимци</a></li>
+                    <li class="nav-item"><a asp-controller="Account" asp-action="Logout" class="nav-link">Изход</a></li>
+                    }
+                    else if (User.IsInRole("Doctor"))
+                    {
+                    <li class="nav-item"><a asp-controller="VetPassport" asp-action="Create" class="nav-link">Създаване на ветеринарен паспорт</a></li>
+                        <li class="nav-item"><a asp-controller="VetPassport" asp-action="Index" class="nav-link">Таблица на ветеринарен паспорт</a></li>
+                    <li class="nav-item"><a asp-controller="Account" asp-action="Logout" class="nav-link">Изход</a></li>
+                    }
+                </ul>
+            </header>
+        </div>
+            @RenderBody()
+            <div>
+            <footer class="py-3 my-4">
+                <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+                <li class="nav-item"><a asp-controller="Home" asp-action="Index" class="nav-link">Начало</a></li>
+                <li class="nav-item"><a class="nav-link">Правила за сигурност</a></li>
+                <li class="nav-item"><a class="nav-link">Клиника</a></li>
+                    @if (User.IsInRole("User"))
+                    {
+                    <li class="nav-item"><a asp-controller="VetPassport" asp-action="GetVetPassports" class="nav-link">Моите домашни любимци</a></li>
+                    }
+                </ul>
+                <p class="text-center text-muted">&2023 ветеринарни услуги</p>
+            </footer>
+        </div>
+
+        <script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+        <script src="/lib/jquery/jquery.min.js"></script>
+        <script src="https://cdn.datatables.net/v/dt/dt-1.13.4/datatables.min.js"></script>
+    </body>
+
+    @RenderSection("Scripts", required: false)
+</html>
